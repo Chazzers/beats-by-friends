@@ -1,6 +1,6 @@
 # Beats by friends/with friends
 
-Welcome to beats by friends, a web application which makes it possible to create beats with your friends.
+Welcome to beats by friends, a web application which makes it possible to create beats with your friends. Samples get added to a loop that keeps repeating over and over. This way you can create a simple beat. 
 
 ## Installation
 
@@ -41,6 +41,8 @@ npm run dev
 	- Expand this to very in depth options
 - Remove things from loop
 - Let people work together on a piece
+- Add bpm/tempo modifier
+- Add metronome
 
 **Jam room**
 - Create jam room
