@@ -1,10 +1,21 @@
 const express = require('express')
 const app = express()
 const http = require('http').Server(app)
-
 const webSocket = require('socket.io')(http)
+const mongoose = require('mongoose')
+
+require('dotenv').config()
 
 const port = 3000
+
+const uri = process.env.MONGODB_URI
+
+// mongoose.connect(uri, {
+// 	useNewUrlParser: true,
+// 	useUnifiedTopology: true,
+// 	dbName: 'beatsByFriends' 
+// })
+// 	.catch(error => console.error(error))
 
 
 app
@@ -13,7 +24,7 @@ app
 
 	.use(express.static('src/static'))
 	.use(express.urlencoded({
-		extended: true
+		extended: true 
 	}))
 	.use(express.json())
 

@@ -63,3 +63,8 @@ npm run dev
 ## Research
 
 - Look at [tone.js](https://tonejs.github.io/)
+
+
+## Resources
+
+- [Piano song recorder by youtuber: WebDevSimplified](https://github1s.com/WebDevSimplified/Piano-Song-Recorder/blob/HEAD/public/styles.css)
