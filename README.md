@@ -2,7 +2,6 @@
 
 Welcome to beats by friends, a web application which makes it possible to create beats with your friends.
 
-
 ## Installation
 
 To install this project you will need a version of npm and node. 
@@ -27,15 +26,38 @@ npm run dev
 
 ## Features
 
+**Samples**
 - Upload samples
+- Send your sample to server
+- Save uploaded samples in database or on server...
+
+**Beats**
 - Save created beat
 
 ### Real Time (sockets)
 
-- Send your sample to server
+**Music loop**
 - Music loop of 4/4 rythm
-- Freestyle with an instrument
+	- Expand this to very in depth options
 - Remove things from loop
-- Add sample to loop
 - Let people work together on a piece
+
+**Jam room**
 - Create jam room
+- Join jam room
+
+**Samples**
+- Add sample to room
+- Search for samples
+
+#### Real time Optional
+
+- Sample creation tool
+- Send your sample to server realtime through your mic
+- Freestyle with an instrument realtime through your mic
+	- Through amp or whatever... (need some research on this probably)
+	- Record button etc.
+
+## Research
+
+- Look at [tone.js](https://tonejs.github.io/)
