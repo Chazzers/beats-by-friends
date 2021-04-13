@@ -10,12 +10,12 @@ const port = process.env.PORT || 3000
 
 const uri = process.env.MONGODB_URI
 
-// mongoose.connect(uri, {
-// 	useNewUrlParser: true,
-// 	useUnifiedTopology: true,
-// 	dbName: 'beatsByFriends' 
-// })
-// 	.catch(error => console.error(error))
+mongoose.connect(uri, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	dbName: 'beatsByFriends' 
+})
+	.catch(error => console.error(error))
 
 
 app
