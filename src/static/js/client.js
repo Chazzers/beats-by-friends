@@ -124,7 +124,7 @@ async function recordAndPlay() {
 	})
 }
 
-recordAndPlay()
+// recordAndPlay()
 
 
 
@@ -133,37 +133,39 @@ recordAndPlay()
 
 // setInterval()
 
-// async function recordAudio(record) {
-// 	console.log(record)
+async function recordAudios(record) {
+	console.log(record)
 
-// 	// Getting permission status.
-// 	const micStatus = await navigator.permissions.query({
-// 		name: 'microphone'
-// 	})
+	// Getting permission status.
+	const micStatus = await navigator.permissions.query({
+		name: 'microphone'
+	})
 
-// 	console.log(micStatus) // state: "prompt"
+	console.log(micStatus) // state: "prompt"
 
-// 	// Reset permission to initial state.
-// 	const context = new AudioContext()
+	// Reset permission to initial state.
+	const context = new AudioContext()
 
-// 	if (context.state === 'suspended') {
-// 		await context.resume()
-// 	}
+	if (context.state === 'suspended') {
+		await context.resume()
+	}
 	
-// 	const stream = await navigator.mediaDevices
-// 		.getUserMedia({
-// 			audio: {
-// 				echoCancellation: false,
-// 				autoGainControl: false,
-// 				noiseSuppression: false,
-// 				latency: 0
-// 			}
-// 		})
-// 	const lineInSource = context.createMediaStreamSource(stream)
-// 	console.log(lineInSource.disconnect())
-// 	lineInSource.disconnect()
+	const stream = await navigator.mediaDevices
+		.getUserMedia({
+			audio: {
+				echoCancellation: false,
+				autoGainControl: false,
+				noiseSuppression: false,
+				latency: 0
+			}
+		})
+	const lineInSource = context.createMediaStreamSource(stream)
+	console.log(lineInSource.disconnect())
+	lineInSource.disconnect()
 	
-// 	if(record === true) {
-// 		lineInSource.connect(context.destination)
-// 	}
-// }
+	if(record === true) {
+		lineInSource.connect(context.destination)
+	}
+}
+
+recordAudios()
