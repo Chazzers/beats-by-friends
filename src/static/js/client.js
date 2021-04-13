@@ -124,7 +124,7 @@ async function recordAndPlay() {
 	})
 }
 
-// recordAndPlay()
+recordAndPlay()
 
 
 
@@ -168,4 +168,4 @@ async function recordAudios(record) {
 	}
 }
 
-recordAudios()
+// recordAudios()
