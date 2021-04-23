@@ -34,12 +34,11 @@ if(roomId) {
 		console.log(`you are in room: ${roomId}`)
 		socket.emit('roomId', {
 			roomId: roomId,
-			checkboxes: checkboxesToArray
 		})
 	})
 }
 
-socket.on('users', (users) => {
+socket.on('users', ({ users, checkboxes }) => {
 	render(`
 	<section>
 	${
@@ -51,6 +50,9 @@ socket.on('users', (users) => {
 	}
 	</section>
 	`, '#user-list')
+	if(checkboxes.length) {
+		checkboxes.forEach(checkbox => checkboxesToArray[checkbox.checkboxIndex].checked = checkbox.checked)
+	}
 })
 
 
@@ -58,7 +60,6 @@ checkboxesToArray.forEach(checkbox => checkbox.addEventListener('click', (e) => 
 	socket.emit('audio', {
 		checkboxIndex: checkboxesToArray.indexOf(e.target),
 		checked: e.target.checked,
-		checkboxAudioSample: e.target.dataset.audio
 	})
 }))
 
@@ -69,7 +70,6 @@ socket.on('sendAudio', (checkbox) => {
 
 let index = 0
 setInterval(() => {
-	console.log('hello')
 	for (const key in groupedCheckboxesArray) {
 		const checkbox = groupedCheckboxesArray[key][index]
 
@@ -87,6 +87,5 @@ setInterval(() => {
 // render html function
 function render(html, selector) {
 	const rootDiv = selector ? document.querySelector(selector) : document.getElementById('root')
-	console.log(selector)
 	return rootDiv.innerHTML = html
 }

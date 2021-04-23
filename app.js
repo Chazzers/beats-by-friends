@@ -25,7 +25,7 @@ const port = process.env.PORT || 3000
 
 const uri = process.env.MONGODB_URI
 
-let currentCheckboxes
+const checkedCheckboxes = []
 
 mongoose.connect(uri, {
 	useNewUrlParser: true,
@@ -63,15 +63,14 @@ io.on('connection', async (socket) => {
 
 	socket.emit('getRoomId')
 	
-	socket.on('roomId', ({ roomId, checkboxes }) => {
+	socket.on('roomId', ({ roomId }) => {
 		socket.join(roomId)
-		currentCheckboxes = checkboxes
 		io.in(roomId).emit('users', {
 			users: users,
-			checkboxes: currentCheckboxes
+			checkboxes: checkedCheckboxes
 		})
 		socket.on('audio', (checkbox) => {
-			console.log(currentCheckboxes)
+			checkedCheckboxes.push(checkbox)
 			io.in(roomId).emit('sendAudio', checkbox)
 		})
 	})
