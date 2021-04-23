@@ -5,7 +5,8 @@ const roomSchema = new mongoose.Schema({
 	roomName: String,
 	password: String,
 	privateRoom: Boolean,
-	users: Array
+	checkboxes: Array,
+	users: Array,
 }, {
 	timestamps: true
 })

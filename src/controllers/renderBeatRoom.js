@@ -27,8 +27,6 @@ async function renderBeatRoom(req, res) {
 		}
 	})
 
-	console.log(cleanSampleData)
-
 	res.render('beat-room', {
 		instrumentSamplesArray: cleanSampleData
 	})

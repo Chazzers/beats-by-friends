@@ -5,10 +5,6 @@ const app = express()
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
 const mongoose = require('mongoose')
-const path = require('path')
-const fs = require('fs')
-//joining path of directory 
-
 
 require('dotenv').config()
 
@@ -19,13 +15,14 @@ const renderRooms = require('./src/controllers/renderRooms')
 const renderIndex = require('./src/controllers/renderIndex')
 const renderCreateRoom = require('./src/controllers/renderCreateRoom')
 const renderBeatRoom = require('./src/controllers/renderBeatRoom')
+const Room = require('./src/models/Room.js')
 
 
 const port = process.env.PORT || 3000
 
 const uri = process.env.MONGODB_URI
 
-const checkedCheckboxes = []
+let checkedCheckboxes = []
 
 mongoose.connect(uri, {
 	useNewUrlParser: true,
@@ -33,7 +30,6 @@ mongoose.connect(uri, {
 	dbName: 'beatsByFriends' 
 })
 	.catch(error => console.error(error))
-
 
 app
 	.set('view engine', 'ejs')
@@ -56,6 +52,8 @@ io.on('connection', async (socket) => {
 	console.log('Someone connected!')
 	const users = []
 
+	
+
 	io.of('/').sockets.forEach(user => users.push({
 		userID: user.id,
 		username: user.username,
@@ -63,15 +61,47 @@ io.on('connection', async (socket) => {
 
 	socket.emit('getRoomId')
 	
-	socket.on('roomId', ({ roomId }) => {
+	socket.on('roomId', async ({ roomId }) => {
 		socket.join(roomId)
+
+		const currentRoom = await Room.findOne({
+			_id: roomId
+		})
+
+		await Room.updateOne({
+			_id: roomId
+		}, { 
+			users: users
+		})
+
 		io.in(roomId).emit('users', {
 			users: users,
-			checkboxes: checkedCheckboxes
+			checkboxes: currentRoom.checkboxes
 		})
-		socket.on('audio', (checkbox) => {
-			checkedCheckboxes.push(checkbox)
+
+		socket.on('audio', async (checkbox) => {
+			if(checkbox.checked) {
+				checkedCheckboxes = currentRoom.checkboxes
+				checkedCheckboxes.push(checkbox)
+			}
+			await Room.updateOne({
+				_id: roomId
+			}, {
+				checkboxes: checkedCheckboxes
+			})
 			io.in(roomId).emit('sendAudio', checkbox)
+		})
+		socket.on('disconnect', async () => {
+			Room.findOneAndUpdate({
+				_id: roomId
+			}, {
+				users: users
+			})
+			if(!users.length) {
+				await Room.deleteOne({
+					_id: roomId 
+				})
+			}
 		})
 	})
 })
