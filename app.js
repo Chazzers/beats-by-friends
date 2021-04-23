@@ -51,6 +51,7 @@ app
 io.on('connection', async (socket) => {
 	console.log('Someone connected!')
 	const users = []
+	const userId = socket.id
 
 	
 
@@ -92,12 +93,13 @@ io.on('connection', async (socket) => {
 			io.in(roomId).emit('sendAudio', checkbox)
 		})
 		socket.on('disconnect', async () => {
+			const remainingUsers = users.filter(user => user.userID !== userId)
 			Room.findOneAndUpdate({
 				_id: roomId
 			}, {
-				users: users
+				users: remainingUsers
 			})
-			if(!users.length) {
+			if(remainingUsers.length === 0) {
 				await Room.deleteOne({
 					_id: roomId 
 				})
