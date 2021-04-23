@@ -1,14 +1,31 @@
+// require and initiate dependencies
+
 const express = require('express')
 const app = express()
 const http = require('http').Server(app)
-const webSocket = require('socket.io')(http)
+const io = require('socket.io')(http)
 const mongoose = require('mongoose')
+const path = require('path')
+const fs = require('fs')
+//joining path of directory 
+
 
 require('dotenv').config()
+
+// require controllers
+
+const createRoom = require('./src/controllers/createRoom')
+const renderRooms = require('./src/controllers/renderRooms')
+const renderIndex = require('./src/controllers/renderIndex')
+const renderCreateRoom = require('./src/controllers/renderCreateRoom')
+const renderBeatRoom = require('./src/controllers/renderBeatRoom')
+
 
 const port = process.env.PORT || 3000
 
 const uri = process.env.MONGODB_URI
+
+let currentCheckboxes
 
 mongoose.connect(uri, {
 	useNewUrlParser: true,
@@ -28,13 +45,46 @@ app
 	}))
 	.use(express.json())
 
-	.get('/', (req, res) => {
-		res.render('index')
-	})
+	.get('/', renderIndex)
+	.get('/rooms', renderRooms)
+	.get('/create-room', renderCreateRoom)
+	.get('/rooms/:id', renderBeatRoom)
 
-webSocket.on('connection', async (socket) => {
-	socket.send('hello')
-	socket.on('message', data => console.log(data))
+	.post('/create-room', createRoom)
+
+io.on('connection', async (socket) => {
+	console.log('Someone connected!')
+	const users = []
+
+	io.of('/').sockets.forEach(user => users.push({
+		userID: user.id,
+		username: user.username,
+	}))
+
+	socket.emit('getRoomId')
+	
+	socket.on('roomId', ({ roomId, checkboxes }) => {
+		socket.join(roomId)
+		currentCheckboxes = checkboxes
+		io.in(roomId).emit('users', {
+			users: users,
+			checkboxes: currentCheckboxes
+		})
+		socket.on('audio', (checkbox) => {
+			console.log(currentCheckboxes)
+			io.in(roomId).emit('sendAudio', checkbox)
+		})
+	})
+})
+
+io.use((socket, next) => {
+	const username = socket.handshake.auth.username
+
+	if (!username) {
+		return next(new Error('invalid username'))
+	}
+	socket.username = username
+	next()
 })
 
 http.listen(port, () => console.log(`this app is listening at http://localhost:${port}`))

@@ -1,0 +1,15 @@
+<section id="rooms-list">
+	<% if(rooms[0]) { %>
+		<% rooms.forEach(room => { %>
+			<article class="room">
+				<h2><%= room.roomName %></h2>
+				<p><%= room.privateRoom ? 'Private' : '' %></p>
+				<button data-id="<%= room._id %>">Join room</button>
+				<a data-id="<%= room._id %>" href="/rooms/<%= room._id %>">Join room</a>
+			</article>
+		<% }) %>
+	<% } else { %>
+		<h2>No rooms have been created yet</h2>
+		<a href="/create-room">Create a room!</a>
+	<% } %>
+</section>

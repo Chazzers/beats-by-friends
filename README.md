@@ -1,6 +1,8 @@
 # Beats by friends/with friends
 
-Welcome to beats by friends, a web application which makes it possible to create beats with your friends. Samples get added to a loop that keeps repeating over and over. This way you can create a simple beat. 
+Welcome to beats by friends, a web application which makes it possible to create beats with your friends. Samples get added to a loop that keeps repeating over and over. This way you can create a simple beat together with your friends. 
+
+[instert img]
 
 ## Installation
 
@@ -24,6 +26,42 @@ For running the project in development mode (using nodemon for server restart on
 npm run dev
 ```
 
+
+## Data lifecycle
+
+**To Database**
+
+**From Database**
+
+**To Server**
+- Room creation request
+
+
+**From Server**
+- Room gets created
+- share Button generated server side with room id
+
+**To client**
+
+**from client**
+
+- Create room input
+- input share button (main url with room id to clipboard)
+- 
+
+
+
+
+- User comes on website
+
+- Room is created with id
+- Share id with friend
+- Friend joins beatroom
+- User
+- 
+
+[insert dataflow img]
+
 ## Features
 
 **Samples**
@@ -43,6 +81,7 @@ npm run dev
 - Let people work together on a piece
 - Add bpm/tempo modifier
 - Add metronome
+- 
 
 **Jam room**
 - Create jam room

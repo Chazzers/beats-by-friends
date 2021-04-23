@@ -1,0 +1,26 @@
+<section>
+	<form id="create-room-form" action="/create-room" method="POST">
+		<label>
+			Username
+			<input type="text" name="username">
+		</label>
+		<label>
+			Room name
+			<input id="room" type="text" name="name">
+		</label>
+		<p>Private?</p>
+		<label>
+			<input type="radio" value="true" name="private">
+			Yes
+		</label>
+		<label>
+			<input type="radio" value="false" name="private">
+			No
+		</label>
+		<label>
+			Room password
+			<input type="password" name="password">
+		</label>
+		<button type="submit">Create room</button>
+	</form>
+</section>

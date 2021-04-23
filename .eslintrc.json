@@ -21,7 +21,7 @@
 		"func-style": ["error", "declaration", {
 			"allowArrowFunctions": true
 		}],
-		"indent": ["error", "tab"],
+		"indent": ["error", "tab", { "ignoredNodes": ["TemplateLiteral > *"] }],
 		"quotes": ["error", "single", {
 			"allowTemplateLiterals": true
 		}],
