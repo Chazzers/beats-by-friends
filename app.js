@@ -11,11 +11,11 @@ const connectLiveReload = require('connect-livereload')
 
 const liveReloadServer = liveReload.createServer()
 
+require('dotenv').config()
+
 if(!process.env.PORT) {
 	liveReloadServer.watch(path.join(__dirname, 'src/static'))
 }
-
-require('dotenv').config()
 
 // require controllers
 const createRoom = require('./src/controllers/createRoom')
