@@ -48,7 +48,9 @@ app
 		extended: true 
 	}))
 	.use(express.json())
-	.use(!process.env.PORT ? connectLiveReload() : '')
+	
+	
+if(!process.env.PORT)app.use(connectLiveReload())
 
 
 	.get('/', renderIndex)
