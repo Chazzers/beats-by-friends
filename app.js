@@ -115,19 +115,19 @@ io.on('connection', async (socket) => {
 			
 			io.in(roomId).emit('sendAudio', checkbox)
 		})
-		// socket.on('disconnect', async () => {
-		// 	const remainingUsers = users.filter(user => user.userID !== userId)
-		// 	Room.findOneAndUpdate({
-		// 		_id: roomId
-		// 	}, {
-		// 		users: remainingUsers
-		// 	})
-		// 	if(remainingUsers.length === 0) {
-		// 		await Room.deleteOne({
-		// 			_id: roomId 
-		// 		})
-		// 	}
-		// })
+		socket.on('disconnect', async () => {
+			const remainingUsers = users.filter(user => user.userID !== userId)
+			Room.findOneAndUpdate({
+				_id: roomId
+			}, {
+				users: remainingUsers
+			})
+			if(remainingUsers.length === 0) {
+				await Room.deleteOne({
+					_id: roomId 
+				})
+			}
+		})
 	})
 })
 
