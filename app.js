@@ -10,7 +10,10 @@ const path = require('path')
 const connectLiveReload = require('connect-livereload')
 
 const liveReloadServer = liveReload.createServer()
-liveReloadServer.watch(path.join(__dirname, 'src/static'))
+
+if(!process.env.PORT) {
+	liveReloadServer.watch(path.join(__dirname, 'src/static'))
+}
 
 require('dotenv').config()
 
@@ -45,7 +48,7 @@ app
 		extended: true 
 	}))
 	.use(express.json())
-	.use(connectLiveReload())
+	.use(!process.env.PORT ? connectLiveReload() : '')
 
 
 	.get('/', renderIndex)
@@ -54,12 +57,15 @@ app
 	.get('/rooms/:id', renderBeatRoom)
 
 	.post('/create-room', createRoom)
-	
-liveReloadServer.server.once('connection', () => {
-	setTimeout(() => {
-		liveReloadServer.refresh('/')
-	}, 100)
-})
+
+if(!process.env.PORT) {
+	liveReloadServer.server.once('connection', () => {
+		setTimeout(() => {
+			liveReloadServer.refresh('/')
+		}, 100)
+	})
+}
+
 io.on('connection', async (socket) => {
 	console.log('Someone connected!')
 	const users = []

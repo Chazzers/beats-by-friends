@@ -281,7 +281,6 @@ header p {
 	position: relative;
 	border-left: solid 1px var(--bg-color);
 	border-bottom: solid 1px var(--bg-color);
-	pointer-events: none;
 }
 
 .samples-container label:last-child p {
