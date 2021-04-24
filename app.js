@@ -52,7 +52,7 @@ app
 	
 if(!process.env.PORT)app.use(connectLiveReload())
 
-
+app
 	.get('/', renderIndex)
 	.get('/rooms', renderRooms)
 	.get('/create-room', renderCreateRoom)
