@@ -187,8 +187,6 @@ a {
 	flex: 1 1 15%;
 }
 
-
-
 .rooms-list .rooms-item a p:first-child {
 	font-weight: bold;
 }
@@ -224,9 +222,6 @@ a {
 }
 
 .rooms-list-container {
-}
-
-.rooms-list-container {
 	position: relative;
 	padding: 0 1rem;
 	margin: 0 auto;
@@ -254,17 +249,9 @@ header p {
 	font-size: 20px;
 }
 
-
-
-
-
 .rooms-list .form-title h4{
 	margin-bottom: 1rem;
 	font-weight: 500;
-}
-
-.rooms-list form {
-
 }
 
 .rooms-list form label {
@@ -294,6 +281,7 @@ header p {
 	position: relative;
 	border-left: solid 1px var(--bg-color);
 	border-bottom: solid 1px var(--bg-color);
+	pointer-events: none;
 }
 
 .samples-container label:last-child p {
@@ -307,8 +295,9 @@ header p {
 .instruments-container label input:checked + p::after {
 	content: '';
 	position: absolute;
-	top: 0;
-	width: 100%;
+	top: 10%;
+	left: 10%;
+	width: 80%;
 	background-color: white;
 	height: 3px;
 	box-shadow: 0 0 8px 3px rgba(255,255,255,0.3);
@@ -325,17 +314,32 @@ header p {
 	background-color: var(--bg-color-dark);
 	margin: 0 -1rem;
 	padding-left: 1rem;
-	
 }
 
 .sample .sample-name {
 	min-width: 5rem;
 	max-width: 5rem;
+	border-right: solid 3px #ffffff;
+	margin: 0;
+	display: flex;
+	align-items: center;
+	margin-right: 0.2rem;
 }
 
 @media screen and (min-width: 1000px) {
 	.instruments-container .samples-container {
 		overflow-x: unset;
+	}
+
+	.samples-container label{
+		margin-right: 0.3rem;
+	}
+
+	.samples-container label:first-child {
+		margin-left: 0.3rem;
+	}
+	.sample {
+		margin-right: 0;
 	}
 	.sample .sample-name {
 		min-width: 10rem;
@@ -356,4 +360,24 @@ header p {
 }
 .instruments-container, #user-list {
 	display: none;
+}
+
+.timeline {
+	top: 0;
+	position: absolute;
+	display: flex;
+	padding-left: 10.35rem;
+	height: 100%;
+}
+
+
+.timeline .timeline-item{
+	width: 3rem;
+	height: 0.5rem;
+	margin-right: 0.3rem;
+}
+
+.instrument-container {
+	position: relative;
+	padding: 1rem 0 0;
 }

@@ -10,6 +10,26 @@ const usernameContainer = document.getElementById('username-container')
 const username = document.getElementById('username')
 const main = document.querySelector('main')
 const userList = document.getElementById('user-list')
+const newArray = []
+
+function createNestedArrays(array = []) {
+	const arrayToPush = []
+	
+	for (let i = 0; i < 16; i++) {
+		arrayToPush.push(array[i])
+	}
+	for (let i = 0; i < 16; i++) {
+		array.shift()
+	}
+	newArray.push(arrayToPush)
+	if(array.length) {
+		return createNestedArrays(array)
+	} else {
+		return newArray
+	}
+}
+
+
 
 let hasUsername = false
 
@@ -44,7 +64,6 @@ if(roomId) {
 }
 
 socket.on('users', ({ users, checkboxes }) => {
-	console.log(users)
 	render(`
 	<section>
 	<h2>Users</h2>
@@ -76,20 +95,48 @@ socket.on('sendAudio', (checkbox) => {
 })
 
 let index = 0
-setInterval(() => {
-	for (const key in groupedCheckboxesArray) {
-		const checkbox = groupedCheckboxesArray[key][index]
 
-		if(checkbox.checkbox.checked) {
-			playSound(checkbox.checkbox)
-		}
-	}
-	if(index === checkboxArrayKeys.length - 1) {
-		index = 0
+const playButton = document.getElementById('play')
+let start = true
+let intervalId
+
+const bpm = document.getElementById('bpm')
+
+if(playButton) playButton.addEventListener('click', () => {
+	if(start) {
+		play(bpm.value)
 	} else {
-		index++
+		pause()
 	}
-}, 1000)
+	start = !start
+})
+
+function play(bpm) {
+	const timelineItems = document.querySelectorAll('.timeline-item')
+	const timelineItemsArray = [...timelineItems]
+	
+	const nestedTimelineArray = createNestedArrays(timelineItemsArray)
+	intervalId = setInterval(() => {
+		for (const key in groupedCheckboxesArray) {
+			const checkbox = groupedCheckboxesArray[key][index]
+	
+			if(checkbox.checkbox.checked) {
+				playSound(checkbox.checkbox)
+			}
+		}
+		nestedTimelineArray.forEach(array => array.forEach(item => item.style.backgroundColor = 'transparent'))
+		nestedTimelineArray.forEach(array => array[index].style.backgroundColor = '#ffffff')
+		if(index === checkboxArrayKeys.length - 1) {
+			index = 0
+		} else {
+			index++
+		}
+	}, 60000 / bpm / 4)
+}
+
+function pause() {
+	clearInterval(intervalId)
+}
 
 // render html function
 function render(html, selector) {

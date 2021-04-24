@@ -91,30 +91,43 @@ io.on('connection', async (socket) => {
 		})
 
 		socket.on('audio', async (checkbox) => {
+			console.log(checkbox)
+			const currentRoom = await Room.findOne({
+				_id: roomId
+			})
+			checkedCheckboxes = currentRoom.checkboxes
+
 			if(checkbox.checked) {
-				checkedCheckboxes = currentRoom.checkboxes
 				checkedCheckboxes.push(checkbox)
-			}
-			await Room.updateOne({
-				_id: roomId
-			}, {
-				checkboxes: checkedCheckboxes
-			})
-			io.in(roomId).emit('sendAudio', checkbox)
-		})
-		socket.on('disconnect', async () => {
-			const remainingUsers = users.filter(user => user.userID !== userId)
-			Room.findOneAndUpdate({
-				_id: roomId
-			}, {
-				users: remainingUsers
-			})
-			if(remainingUsers.length === 0) {
-				await Room.deleteOne({
-					_id: roomId 
+				await Room.updateOne({
+					_id: roomId
+				}, {
+					checkboxes: checkedCheckboxes
+				})
+			} else {
+				const newCheckboxes = checkedCheckboxes.filter(item => item.checkboxIndex !== checkbox.checkboxIndex)
+				await Room.updateOne({
+					_id: roomId
+				}, {
+					checkboxes: newCheckboxes
 				})
 			}
+			
+			io.in(roomId).emit('sendAudio', checkbox)
 		})
+		// socket.on('disconnect', async () => {
+		// 	const remainingUsers = users.filter(user => user.userID !== userId)
+		// 	Room.findOneAndUpdate({
+		// 		_id: roomId
+		// 	}, {
+		// 		users: remainingUsers
+		// 	})
+		// 	if(remainingUsers.length === 0) {
+		// 		await Room.deleteOne({
+		// 			_id: roomId 
+		// 		})
+		// 	}
+		// })
 	})
 })
 
