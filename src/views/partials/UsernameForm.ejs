@@ -1,9 +1,12 @@
-<section>
-	<form id="create-username-form" action="/rooms" method="POST">
-		<label>
-			username
-			<input id="username" type="text">
-		</label>
-		<button type="submit">See rooms</button>
-	</form>
-</section>
+<div id="username-container" class="rooms-list-container">
+	<section class="rooms-list">
+		<span class="form-title"><h4>Enter username</h4></span>
+		<form id="create-username-form" action="/create-room" method="POST">
+			<label>
+				username
+				<input id="username" type="text" name="username" required>
+			</label>
+			<button class="btn" type="submit">Join room</button>
+		</form>
+	</section>
+</div>

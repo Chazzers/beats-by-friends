@@ -6,92 +6,92 @@
 </head>
 
 <body>
-	<div id="root">
-		<main>
+	<header>
+		<%- include('partials/Header.ejs') %>
+	</header>
+	<div class="beat-room" id="root">
+		<main class="instruments-container">
 			<% instrumentSamplesArray.forEach(instrument => { %>
 				<h2><%= instrument.instrument %></h2>
 				<% instrument.samples.forEach(sample => { %>
-					<h3><%= sample.sampleName %></h3>
-					<label>
-						1
-						<input type="checkbox" name=""  class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
-					</label>
-					<label>
-						2
-						<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
-					</label>
-					<label>
-						3
-						<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
-					</label>
-					<label>
-						4
-						<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
-					</label>
-					<label>
-						5
-						<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
-					</label>
-					<label>
-						6
-						<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
-					</label>
-					<label>
-						7
-						<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
-					</label>
-					<label>
-						8
-						<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
-					</label>
-					<label>
-						9
-						<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
-					</label>
-					<label>
-						10
-						<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
-					</label>
-					<label>
-						11
-						<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
-					</label>
-					<label>
-						12
-						<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
-					</label>
-					<label>
-						13
-						<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
-					</label>
-					<label>
-						14
-						<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
-					</label>
-					<label>
-						15
-						<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
-					</label>
-					<label>
-						16
-						<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
-					</label>
-					<audio id="<%= sample.sampleName %>" src="/samples/<%= instrument.instrument %>/<%= sample.sampleFileName %>"></audio>
+					<div class="sample">
+						<p class="sample-name"><%= sample.sampleName %></p>
+						<div class="samples-container">
+							<label>
+								<input type="checkbox" name=""  class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
+								<p>1</p>
+							</label>
+							<label>
+								<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
+								<p>2</p>
+							</label>
+							<label>
+								<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
+								<p>3</p>
+							</label>
+							<label>
+								<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
+								<p>4</p>
+							</label>
+							<label>
+								<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
+								<p>5</p>
+							</label>
+							<label>
+								<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
+								<p>6</p>
+							</label>
+							<label>
+								<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
+								<p>7</p>
+							</label>
+							<label>
+								<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
+								<p>8</p>
+							</label>
+							<label>
+								<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
+								<p>9</p>
+							</label>
+							<label>
+								<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
+								<p>10</p>
+							</label>
+							<label>
+								<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
+								<p>11</p>
+							</label>
+							<label>
+								<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
+								<p>12</p>
+							</label>
+							<label>
+								<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
+								<p>13</p>
+							</label>
+							<label>
+								<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
+								<p>14</p>
+							</label>
+							<label>
+								
+								<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
+								<p>15</p>
+							</label>
+							<label>
+								<input type="checkbox" name="" class="audio-input <%= sample.sampleName %>" data-audio="<%= sample.sampleName %>">
+								<p>16</p>
+							</label>
+							<audio id="<%= sample.sampleName %>" src="/samples/<%= instrument.instrument %>/<%= sample.sampleFileName %>"></audio>
+						</div>
+					</div>
 				<% }) %>
 			<% }) %>
 		</main>
-		<section id="user-list">
-
+		<section class="user-list" id="user-list">
+			<h2>Users</h2>
 		</section>
-		<section>
-			<form id="create-username-form">
-				<label>
-					username
-					<input id="username" type="text">
-				</label>
-				<button type="submit">Submit username</button>
-			</form>
-		</section>
+		<%- include('partials/UsernameForm.ejs') %>
 	</div>
 </body>
 

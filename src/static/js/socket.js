@@ -1,21 +1,20 @@
 import { checkboxArrayKeys, groupedCheckboxesArray, checkboxesToArray } from './groupAudioByKey.js'
 import playSound from './playSound.js'
 
-
-
 const socket = io({
 	autoConnect: false
 })
 
 const createUsernameForm = document.getElementById('create-username-form')
+const usernameContainer = document.getElementById('username-container')
 const username = document.getElementById('username')
 const main = document.querySelector('main')
+const userList = document.getElementById('user-list')
 
 let hasUsername = false
 
 if(!hasUsername && createUsernameForm){ 
-	createUsernameForm.style.display = 'block'
-	main.style.display = 'none'
+	usernameContainer.style.display = 'block'
 }
 
 if(createUsernameForm) {
@@ -27,8 +26,9 @@ if(createUsernameForm) {
 		}
 		socket.connect()
 		if(hasUsername) {
-			createUsernameForm.style.display = 'none'
+			usernameContainer.style.display = 'none'
 			main.style.display = 'block'
+			userList.style.display = 'block'
 		}
 	})
 }
@@ -47,10 +47,11 @@ socket.on('users', ({ users, checkboxes }) => {
 	console.log(users)
 	render(`
 	<section>
+	<h2>Users</h2>
 	${
 		users.map(user => 
 		`<article>
-			<h2>${user.username}</h2>
+			<p>${user.username}</p>
 		</article>`
 		).join('')
 	}

@@ -35,7 +35,7 @@ async function renderBeatRoom(req, res) {
 		})
 
 		res.render('beat-room', {
-			instrumentSamplesArray: cleanSampleData
+			instrumentSamplesArray: cleanSampleData,
 		})
 	} else {
 		res.redirect('/')

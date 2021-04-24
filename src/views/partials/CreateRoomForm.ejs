@@ -1,26 +1,12 @@
-<section>
-	<form id="create-room-form" action="/create-room" method="POST">
-		<label>
-			Username
-			<input type="text" name="username">
-		</label>
-		<label>
-			Room name
-			<input id="room" type="text" name="name">
-		</label>
-		<p>Private?</p>
-		<label>
-			<input type="radio" value="true" name="private">
-			Yes
-		</label>
-		<label>
-			<input type="radio" value="false" name="private">
-			No
-		</label>
-		<label>
-			Room password
-			<input type="password" name="password">
-		</label>
-		<button type="submit">Create room</button>
-	</form>
-</section>
+<div class="rooms-list-container">
+	<section class="rooms-list">
+		<span class="form-title"><h4>Create a room</h4></span>
+		<form id="create-room-form" action="/create-room" method="POST">
+			<label>
+				Room name
+				<input id="room" type="text" name="name" required>
+			</label>
+			<button class="btn" type="submit">Create room</button>
+		</form>
+	</section>
+</div>

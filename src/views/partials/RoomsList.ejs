@@ -1,15 +1,29 @@
-<section id="rooms-list">
-	<% if(rooms[0]) { %>
-		<a href="/create-room">Create a room!</a>
-		<% rooms.forEach(room => { %>
-			<article class="room">
-				<h2><%= room.roomName %></h2>
-				<p><%= room.privateRoom ? 'Private' : '' %></p>
-				<a data-id="<%= room._id %>" href="/rooms/<%= room._id %>">Join room</a>
-			</article>
-		<% }) %>
-	<% } else { %>
-		<h2>No rooms have been created yet</h2>
-		<a href="/create-room">Create a room!</a>
-	<% } %>
-</section>
+<div class="rooms-list-container">
+	<a class="btn yes-beats create-room-btn" href="/create-room">Create a room!</a>
+	<section class="rooms-list" id="rooms-list">
+		<h2>Beatrooms</h2>
+		<h4>join a beatroom</h4>
+		<div class="descriptions-container">
+			<p>Room</p>
+			<p>Users</p>
+			<div></div>
+		</div>
+		<% if(rooms[0]) { %>
+			
+			<ul>	
+				<% rooms.forEach(room => { %>
+					<li class="rooms-item">
+						<a href="/rooms/<%= room._id %>">
+							<p><%= room.roomName %></p>
+							<p><%= room.users.length %></p>
+							<p class="btn">Join room</p>
+						</a>
+					</li>
+				<% }) %>
+			</ul>
+		<% } else { %>
+			<p class="no-beats">No rooms have been created yet</p>
+			<a class="no-beats btn" class="no-beats" href="/create-room">Create a room!</a>
+		<% } %>
+	</section>
+</div>

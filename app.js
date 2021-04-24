@@ -5,11 +5,16 @@ const app = express()
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
 const mongoose = require('mongoose')
+const liveReload = require('livereload')
+const path = require('path')
+const connectLiveReload = require('connect-livereload')
+
+const liveReloadServer = liveReload.createServer()
+liveReloadServer.watch(path.join(__dirname, 'src/static'))
 
 require('dotenv').config()
 
 // require controllers
-
 const createRoom = require('./src/controllers/createRoom')
 const renderRooms = require('./src/controllers/renderRooms')
 const renderIndex = require('./src/controllers/renderIndex')
@@ -40,6 +45,8 @@ app
 		extended: true 
 	}))
 	.use(express.json())
+	.use(connectLiveReload())
+
 
 	.get('/', renderIndex)
 	.get('/rooms', renderRooms)
@@ -47,13 +54,16 @@ app
 	.get('/rooms/:id', renderBeatRoom)
 
 	.post('/create-room', createRoom)
-
+	
+liveReloadServer.server.once('connection', () => {
+	setTimeout(() => {
+		liveReloadServer.refresh('/')
+	}, 100)
+})
 io.on('connection', async (socket) => {
 	console.log('Someone connected!')
 	const users = []
 	const userId = socket.id
-
-	
 
 	io.of('/').sockets.forEach(user => users.push({
 		userID: user.id,
