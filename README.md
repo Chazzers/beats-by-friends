@@ -29,38 +29,7 @@ npm run dev
 
 ## Data lifecycle
 
-**To Database**
-
-**From Database**
-
-**To Server**
-- Room creation request
-
-
-**From Server**
-- Room gets created
-- share Button generated server side with room id
-
-**To client**
-
-**from client**
-
-- Create room input
-- input share button (main url with room id to clipboard)
-- 
-
-
-
-
-- User comes on website
-
-- Room is created with id
-- Share id with friend
-- Friend joins beatroom
-- User
-- 
-
-[insert dataflow img]
+![image](https://user-images.githubusercontent.com/33430669/116135716-b92c5c80-a6d1-11eb-9311-a0baa93c951f.png)
 
 ## Features
 
