@@ -11,6 +11,9 @@ const username = document.getElementById('username')
 const main = document.querySelector('main')
 const userList = document.getElementById('user-list')
 const newArray = []
+const bpmValue = document.getElementById('bpm')
+const playSvg = document.getElementById('play-svg')
+const pauseSvg = document.getElementById('pause-svg')
 
 function createNestedArrays(array = []) {
 	const arrayToPush = []
@@ -59,11 +62,12 @@ if(roomId) {
 		console.log(`you are in room: ${roomId}`)
 		socket.emit('roomId', {
 			roomId: roomId,
+			bpm: bpmValue.value
 		})
 	})
 }
 
-socket.on('users', ({ users, checkboxes }) => {
+socket.on('users', ({ users, checkboxes, bpm }) => {
 	render(`
 	<section>
 	<h2>Users</h2>
@@ -79,6 +83,7 @@ socket.on('users', ({ users, checkboxes }) => {
 	if(checkboxes.length) {
 		checkboxes.forEach(checkbox => checkboxesToArray[checkbox.checkboxIndex].checked = checkbox.checked)
 	}
+	bpmValue.value = bpm
 })
 
 
@@ -100,13 +105,23 @@ const playButton = document.getElementById('play')
 let start = true
 let intervalId
 
-const bpm = document.getElementById('bpm')
+if(start && playSvg) {
+	playSvg.style.display = 'block'
+	console.log(pauseSvg)
+	pauseSvg.style.display = 'none'
+}
+
 
 if(playButton) playButton.addEventListener('click', () => {
 	if(start) {
-		play(bpm.value)
+		play(bpmValue.value)
+		playSvg.style.display = 'none'
+		pauseSvg.style.display = 'block'
+
 	} else {
 		pause()
+		playSvg.style.display = 'block'
+		pauseSvg.style.display = 'none'
 	}
 	start = !start
 })
@@ -134,8 +149,27 @@ function play(bpm) {
 	}, 60000 / bpm / 4)
 }
 
+
+
 function pause() {
 	clearInterval(intervalId)
+}
+
+function addMultipleEventlisteners(events = [], element, handler) {
+	events.forEach(eventType => element.addEventListener(eventType, () => handler(bpmValue.value)))
+}
+
+function emitBpmValueToAllUsers(bpm) {
+	socket.emit('send bpm', bpm)
+}
+
+socket.on('change bpm', (bpm) => {
+	bpmValue.value = bpm.bpm
+})
+
+
+if(bpmValue) {
+	addMultipleEventlisteners(['mouseup', 'keyup'], bpmValue, emitBpmValueToAllUsers)
 }
 
 // render html function

@@ -7,6 +7,7 @@ const roomSchema = new mongoose.Schema({
 	privateRoom: Boolean,
 	checkboxes: Array,
 	users: Array,
+	bpm: Number
 }, {
 	timestamps: true
 })

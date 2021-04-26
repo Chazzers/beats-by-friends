@@ -9,18 +9,28 @@
 	<header>
 		<%- include('partials/Header.ejs') %>
 	</header>
-	<button type="button" id="play">play</button>
-	<label>
-		Bpm
-		<input 
-			id="bpm" 
-			type="number" 
-			name="bpm" 
-			value="120"
-			>
-	</label>
 	<div class="beat-room" id="root">
 		<main class="instruments-container">
+			<button class="pause-and-play" type="button" id="play" aria-label="Play">
+				<svg id="play-svg" width="88" height="112" viewBox="0 0 88 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M0 8.86004V103.14C0 109.512 7.08582 113.326 12.4048 109.818L83.875 62.6782C88.6687 59.5164 88.6687 52.4836 83.875 49.3218L12.4048 2.18187C7.08582 -1.32637 0 2.48832 0 8.86004Z" fill="white"/>
+				</svg>
+				<svg id="pause-svg" width="66" height="109" viewBox="0 0 66 109" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect width="22" height="109" rx="8" fill="white"/>
+					<rect x="44" width="22" height="109" rx="8" fill="white"/>
+				</svg>
+			</button>
+			<label class="bpm-label">
+				Bpm:
+				<input 
+					id="bpm"
+					type="number"
+					name="bpm"
+					value="120"
+					min="1"
+					max="300"
+					>
+			</label>
 			<% instrumentSamplesArray.forEach(instrument => { %>
 				<h2><%= instrument.instrument %></h2>
 				<div class="instrument-container">

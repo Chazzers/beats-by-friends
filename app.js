@@ -80,26 +80,33 @@ io.on('connection', async (socket) => {
 
 	socket.emit('getRoomId')
 	
-	socket.on('roomId', async ({ roomId }) => {
+	socket.on('roomId', async ({ roomId, bpm }) => {
 		socket.join(roomId)
+
+		await Room.updateOne({
+			_id: roomId
+		}, { 
+			users: users,
+			bpm: bpm
+		})
 
 		const currentRoom = await Room.findOne({
 			_id: roomId
 		})
 
-		await Room.updateOne({
-			_id: roomId
-		}, { 
-			users: users
+		socket.on('send bpm', (bpm) => {
+			io.in(roomId).emit('change bpm', {
+				bpm: bpm
+			})
 		})
 
 		io.in(roomId).emit('users', {
 			users: users,
-			checkboxes: currentRoom.checkboxes
+			checkboxes: currentRoom.checkboxes,
+			bpm: currentRoom.bpm
 		})
 
 		socket.on('audio', async (checkbox) => {
-			console.log(checkbox)
 			const currentRoom = await Room.findOne({
 				_id: roomId
 			})
