@@ -316,14 +316,21 @@ header p {
 
 
 .instruments-container label input:checked + p::after {
+	background-color: white;
+	box-shadow: 0 0 8px 3px rgba(255,255,255,0.3);
+	opacity: 1;
+}
+
+.instruments-container label p::after {
 	content: '';
 	position: absolute;
 	top: 10%;
 	left: 10%;
 	width: 80%;
-	background-color: white;
+	background-color: var(--bg-color-dark);
 	height: 3px;
-	box-shadow: 0 0 8px 3px rgba(255,255,255,0.3);
+	opacity: 0.5;
+	transition: all 0.2s ease;
 }
 
 .instruments-container .samples-container {
@@ -403,4 +410,8 @@ header p {
 .instrument-container {
 	position: relative;
 	padding: 1rem 0 0;
+}
+
+.pause-svg {
+	display: none;
 }

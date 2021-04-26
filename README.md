@@ -76,20 +76,13 @@ npm run dev
 
 **Music loop**
 - Music loop of 4/4 rythm
-	- Expand this to very in depth options
 - Remove things from loop
 - Let people work together on a piece
 - Add bpm/tempo modifier
-- Add metronome
-- 
 
 **Jam room**
 - Create jam room
 - Join jam room
-
-**Samples**
-- Add sample to room
-- Search for samples
 
 #### Real time Optional
 
