@@ -47,10 +47,13 @@ npm run dev
 
 - Look at [tone.js](https://tonejs.github.io/)
 
-## Sockets and realtime
+## 🔗Sockets and realtime🔗
 
 Before starting this project, my knowledge on sockets did not exist. The flow of working with sockets is something to get used to since there is a lot of back and forth logic  that goes into using these. For sockets I used the package: [socket io](https://socket.io/). A socket is basically the bridge that connects the server and the client in real time which then allows users to send updates on the client to the server and the server to send updates to all the connected clients. 
 
+## 💾Mongodb + mongoose💾
+
+This application also makes use of mongoose and mongodb to store the data of the jam rooms. I would've liked to do more with mongo db for example, using GridFS for storing music samples and the beats created in a room. 
 
 ## 📃Resources📃
 
