@@ -27,7 +27,7 @@ For running the project in development mode (using nodemon for server restart on
 npm run dev
 ```
 
-## Data lifecycle
+## 🌳Data lifecycle🌳
 
 ![image](https://user-images.githubusercontent.com/33430669/116135716-b92c5c80-a6d1-11eb-9311-a0baa93c951f.png)
 
