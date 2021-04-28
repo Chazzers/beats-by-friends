@@ -55,6 +55,10 @@ Before starting this project, my knowledge on sockets did not exist. The flow of
 
 This application also makes use of mongoose and mongodb to store the data of the jam rooms. I would've liked to do more with mongo db for example, using GridFS for storing music samples and the beats created in a room. 
 
+## What it could have been
+
+If you want to read about the amazing features this project could've had if I decided to give up my personal time. Click [here](https://github.com/Chazzers/real-time-web-2021/projects/1)
+
 ## 📃Resources📃
 
 - [Piano song recorder by youtuber: WebDevSimplified](https://github1s.com/WebDevSimplified/Piano-Song-Recorder/blob/HEAD/public/styles.css)
