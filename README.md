@@ -62,6 +62,26 @@ npm run dev
 
 [insert dataflow img]
 
+
+1. User creates a room
+2. Post room to database
+
+Join a room
+Load
+1. Find all rooms on home
+2. Click on join room
+3. Enter username
+4. Socket connects to room
+5. on connection server will emit event to get room id
+6. client gets room id from url
+7. emits the room id to the server
+8. When the room id has been received the server will send the bpm, the users and all checked checkboxes to the connected clients
+Click audioCheckbox
+1. When an audio checkbox is checked send the checked checkbox to the surver
+2. The current room in the database will be updated with the checked checkbox
+3. The room's checkboxes are sent to all the connected clients
+
+
 ## Features
 
 **Samples**

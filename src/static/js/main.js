@@ -1,4 +1,3 @@
-
 import emitBpmValueToAllUsers from './handlers/emitBpmValueToAllUsers.js'
 import addMultipleEventlisteners from  './helpers/addMultipleEventlisteners.js'
 import { checkboxesToArray } from './helpers/groupAudioByKey.js'

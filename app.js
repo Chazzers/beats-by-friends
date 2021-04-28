@@ -127,7 +127,6 @@ io.on('connection', async (socket) => {
 					checkboxes: newCheckboxes
 				})
 			}
-			
 			io.in(roomId).emit('sendAudio', checkbox)
 		})
 		socket.on('disconnect', async () => {
