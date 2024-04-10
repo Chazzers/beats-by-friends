@@ -1,22 +1,11 @@
 // require and initiate dependencies
-
 const express = require('express')
 const app = express()
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
 const mongoose = require('mongoose')
-const liveReload = require('livereload')
-const path = require('path')
-const connectLiveReload = require('connect-livereload')
-
-const liveReloadServer = liveReload.createServer()
 
 require('dotenv').config()
-
-if(!process.env.PORT) {
-	liveReloadServer.watch(path.join(__dirname, 'src/static'))
-}
-
 // require controllers
 const createRoom = require('./src/controllers/createRoom')
 const renderRooms = require('./src/controllers/renderRooms')
@@ -25,7 +14,6 @@ const renderCreateRoom = require('./src/controllers/renderCreateRoom')
 const renderBeatRoom = require('./src/controllers/renderBeatRoom')
 const Room = require('./src/models/Room.js')
 
-
 const port = process.env.PORT || 3000
 
 const uri = process.env.MONGODB_URI
@@ -33,9 +21,7 @@ const uri = process.env.MONGODB_URI
 let checkedCheckboxes = []
 
 mongoose.connect(uri, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-	dbName: 'beatsByFriends' 
+	dbName: 'beatsByFriends'
 })
 	.catch(error => console.error(error))
 
@@ -45,12 +31,9 @@ app
 
 	.use(express.static('src/static'))
 	.use(express.urlencoded({
-		extended: true 
+		extended: true
 	}))
 	.use(express.json())
-	
-	
-if(!process.env.PORT)app.use(connectLiveReload())
 
 app
 	.get('/', renderIndex)
@@ -59,14 +42,6 @@ app
 	.get('/rooms/:id', renderBeatRoom)
 
 	.post('/create-room', createRoom)
-
-if(!process.env.PORT) {
-	liveReloadServer.server.once('connection', () => {
-		setTimeout(() => {
-			liveReloadServer.refresh('/')
-		}, 100)
-	})
-}
 
 io.on('connection', async (socket) => {
 	console.log('Someone connected!')
@@ -79,13 +54,13 @@ io.on('connection', async (socket) => {
 	}))
 
 	socket.emit('getRoomId')
-	
+
 	socket.on('roomId', async ({ roomId, bpm }) => {
 		socket.join(roomId)
 
 		await Room.updateOne({
 			_id: roomId
-		}, { 
+		}, {
 			users: users,
 			bpm: bpm
 		})
@@ -138,7 +113,7 @@ io.on('connection', async (socket) => {
 			})
 			if(remainingUsers.length === 0) {
 				await Room.deleteOne({
-					_id: roomId 
+					_id: roomId
 				})
 			}
 		})
